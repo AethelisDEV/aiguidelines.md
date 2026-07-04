@@ -35,6 +35,7 @@ To maintain architectural continuity across different sessions and AI assistants
 # Aeon Engine AI Constitutional Guidelines (v2026)
 
 - **API Accuracy (Strict Enforcement)**: AI, wgpu, winit, egui vb. kullanılan tüm kütüphanelerin internetten (webden) kontrol edilerek elde edilen en güncel kararlı dökümantasyonuna sadık kalmak zorundadır. Eski sürüm API'larını kullanmak veya önermek kesinlikle YASAKTIR.
+- **Kırıcı Değişiklikler (Breaking Changes) ve Onay**: Eğer bir kütüphanenin en güncel kararlı sürümüne geçiş, kod tabanında geniş çaplı kırıcı değişiklikler (breaking changes) veya büyük yapısal refaktörler gerektiriyorsa; AI bu güncellemeyi doğrudan uygulamamalıdır. Öncelikle durum hakkında kullanıcıya detaylı bilgi vermeli ve onay istemelidir.
 - **Modern Rust Standartları**: Pipeline & Bindings: Kodlar; en güncel kütüphane sürümleriyle gelen en yeni struct alanlarını (örn: depth_slice, multiview_mask) ve zorunlu hale gelen cache yapılarını içermelidir.
 - **Memory Safety**: Option sarmalları ve Rust edisyonunun gerektirdiği en güncel modern Result yönetimi kullanılmalıdır.
 - **Deprecated Uyarısı**: Eğer kütüphane dokümantasyonunda bir fonksiyon veya struct "deprecated" olarak işaretlenmişse, AI bunu asla kullanmamalı, direkt güncel karşılığına geçmelidir.
