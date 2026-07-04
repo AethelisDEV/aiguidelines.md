@@ -1,10 +1,10 @@
-﻿# AI Guidelines for Aeon Engine Development
+﻿# AI Guidelines for (Proje Adı) Development
 
 > [!IMPORTANT]
 > All AI assistants contributing to this repository MUST read and adhere to these guidelines before proposing or executing any code changes.
 
 ## 1. Zero Unsafe Policy
-Memory safety is the highest priority in Aeon Engine. 
+Memory safety is the highest priority in (Proje Adı). 
 - **Rule**: Do NOT use `unsafe` blocks under any circumstances.
 - **Rationale**: We prioritize safety and stability over micro-optimizations that require bypassing Rust's borrow checker. If a task seems to require `unsafe`, find a safe alternative using higher-level abstractions or libraries.
 
@@ -23,7 +23,7 @@ To maintain architectural continuity across different sessions and AI assistants
 - **Rule**: Before starting work, the AI must search and read relevant files in the `knowledge/` directory (especially those inside `knowledge/history/`) to understand the existing logic, patterns, and resolved issues.
 
 ## 4. Modular Responsibility
-Aeon Engine follows a strict modular architecture.
+(Proje Adı) follows a strict modular architecture.
 - **Rule**: Keep `main.rs` thin. 
 - **Rule**: Delegate logic to specialized modules (e.g., `engine.rs`, `editor.rs`, `render/`, etc.). 
 - **Rule**: Do not create "God Objects" that manage multiple disconnected responsibilities.
@@ -198,13 +198,11 @@ Aeon Engine does not accept low-quality `///` documentation comments. Documentat
 
 - **Rule**: Every project source file (e.g., `.rs`, `.wgsl` files) MUST begin with the following exact two-line header:
   ```rust
-  // SPDX-License-Identifier: GPL-3.0-only
-  // Copyright (c) 2026 AethelisDEV / Aeon Engine. All rights reserved.
+  // SPDX-License-Identifier: (Lisans Türü)-only
+  // Copyright (c) 2026 (Github Adı) / (Proje Adı). All rights reserved.
   ```
 - **Rule**: When creating a new `.rs` or `.wgsl` source file, this header must be prepended at the very top.
 - **Rule**: AI assistants and developers MUST preserve this header during any modifications or refactoring.
 - **Rule**: If a file is updated in a subsequent year (e.g., 2027, 2028, etc.), the copyright year in the header should be updated to reflect the active year or year range (e.g., `2026-2027` or `2026-2028`).
 
 ---
-*Signed: The Senior Architect AI (Antigravity)*
-
