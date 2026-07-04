@@ -39,7 +39,6 @@ Aeon Engine follows a strict modular architecture.
 **Memory Safety**: Option sarmalları ve Rust 2024/2026 edisyonunun gerektirdiği modern Result yönetimi kullanılmalıdır.
 **Deprecated Uyarısı**: Eğer kütüphane dokümantasyonunda bir fonksiyon veya struct "deprecated" olarak işaretlenmişse, AI bunu asla kullanmamalı, direkt güncel karşılığına geçmelidir.
 **Doğrulama**: AI, kod üretirken wgpu::RenderPipelineDescriptor veya wgpu::Device metodlarının 0.30+ imzasıyla eşleştiğini doğrulamakla yükümlüdür. AI, tahmin yürütmek yerine, güncel kütüphane imzasını "görüyormuş gibi" (veya dökümantasyon verisini kullanarak) yazmalıdır.
-- **Safety**: Strict avoidance of `unsafe` blocks. Aeon Engine is 100% safe Rust.
 - **Documentation**: Yaptığın her köklü değişikliği `///` ile kodun içine ve ilgili .md dosyalarına işle. AI her işe başlarken kendi geçmiş .md raporlarını okumalıdır.
 - **Modularization**: Dosyalar 800 satırı geçmemelidir. Mantıksal ayrımı temiz tut.
 - **Zero-Error Policy**: Projenin derlenme durumu her zaman 0 error / 0 warning hedefinde tutulmalıdır.
