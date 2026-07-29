@@ -206,4 +206,36 @@ Aeon Engine does not accept low-quality `///` documentation comments. Documentat
 - **Rule**: AI assistants and developers MUST preserve this header during any modifications or refactoring.
 - **Rule**: If a file is updated in a subsequent year (e.g., 2027, 2028, etc.), the copyright year in the header should be updated to reflect the active year or year range (e.g., `2026-2027` or `2026-2028`).
 
+  
+## 18. Comprehensive Quality, Formatting, and Performance Verification Rule (ZORUNLU)
+
+AI assistants MUST NOT declare a task completed simply by saying "code edited" or "test passed". The AI is required to execute a comprehensive suite of static and dynamic checks and report concrete quantitative metrics to the user.
+
+- **Rule 18.1 (Mandatory Multi-Tool Verification Suite)**: Before declaring any task, feature implementation, or bug fix complete, the AI MUST execute:
+  1. `cargo clippy --workspace --all-targets` (Ensure zero lints, warnings, or idiom violations).
+  2. `cargo fmt --check` (Ensure code adheres 100% to Rust code style standards).
+  3. `cargo test --workspace` (Ensure all workspace unit, integration, and doc tests pass 100%).
+
+- **Rule 18.2 (Quantitative Performance & Resource Metric Reporting)**: The AI MUST NOT give vague or generic summaries. When introducing or modifying systems (rendering pipelines, ECS queries, physics step, audio math, asset management, UI processors), the AI MUST analyze and report:
+  - **Performance & Benchmarks**: Run benchmarks (`cargo bench` or runtime profiler metrics) and report exact percentage changes (e.g., *"This change improved raycast throughput by +12%"* or *"Warning: This change degraded render execution time by 8%"*).
+  - **Memory Allocations**: Explicitly report whether the change introduces heap allocations (`Vec::new()`, `Box`, `String`, `HashMap`) inside hot inner loops (per-frame `update` or `render`), or if allocations remain 0-allocation / stack-bound.
+  - **Binary Size Impacts**: Measure and report binary size impact when adding new external crate dependencies or large static assets (e.g., *"Binary size delta: +14 KB"*).
+
+- **Rule 18.3 (Mandatory Verification Report Block)**: Every final response summary MUST include a **Verification & Performance Audit Report** block formatted as follows:
+
+  ```markdown
+  ### 📊 Verification & Performance Audit Report
+  - 🛠️ **Cargo Clippy**: 0 warnings / 0 errors
+  - 🎨 **Cargo Format**: 100% Compliant (`cargo fmt --check`)
+  - 🧪 **Cargo Test**: All tests passed (X passed, 0 failed)
+  - ⚡ **Performance Impact**: [Quantitative impact, e.g., "0.0% change" or "-8.2% degradation detected"]
+  - 🧠 **Memory Allocations**: [Zero allocations in hot loop / Allocation delta]
+  - 📦 **Binary Size Impact**: [Impact delta, e.g., "+0 KB"]
+  ```
+
+
+
+
+
+
 ---
