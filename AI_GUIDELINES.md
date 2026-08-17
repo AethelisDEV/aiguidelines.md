@@ -234,7 +234,7 @@ AI assistants MUST NOT declare a task completed simply by saying "code edited" o
   ```
 ## 19. Strict Redundant Clone Prevention Rule (Gereksiz `.clone()` Kullanımı Yasaktır - (ZORUNLU)
 
-Kolaycılığa kaçılarak yapılan gereksiz `.clone()` çağrıları Aeon Engine kod tabanında KESİNLİKLE YASAKTIR.
+Kolaycılığa kaçılarak yapılan gereksiz `.clone()` çağrıları (Proje Adı) kod tabanında KESİNLİKLE YASAKTIR.
 
 - **Rule 19.1 (No Unnecessary Clones)**: Sırf borçlanma denetleyicisini (borrow checker) tatmin etmek veya kolayca geçiştirmek için nesneleri klonlamak kesinlikle yasaktır. Her `.clone()` çağrısının teknik bir zorunluluğu olmak zorundadır.
 - **Rule 19.2 (Ownership & Move Semantics First)**: Taşınabilecek (`move`) veya referans (`&`/`&mut`) verilebilecek durumlarda klonlama yapılmamalıdır. Bir vektör veya veri yapısı kullanım sonrasında temizleniyorsa veya tüketiliyorsa `std::mem::take`, `std::mem::replace` veya `.into_iter()` / `.into_par_iter()` kullanılmalıdır.
@@ -245,7 +245,7 @@ Kolaycılığa kaçılarak yapılan gereksiz `.clone()` çağrıları Aeon Engin
 ---
 ## 20. Strict Prohibition of Linter Warning Suppression Attributes (`#[allow(clippy::...)]` Yasağı - ZORUNLU)
 
-Derleyici veya linter uyarılarını (özellikle Clippy) kolay yoldan susturmak amacıyla koda `#[allow(clippy::...)]` veya `#[allow(...)]` nitelikleri eklemek Aeon Engine kod tabanında **KESİNLİKLE YASAKTIR**.
+Derleyici veya linter uyarılarını (özellikle Clippy) kolay yoldan susturmak amacıyla koda `#[allow(clippy::...)]` veya `#[allow(...)]` nitelikleri eklemek (Proje Adı) kod tabanında **KESİNLİKLE YASAKTIR**.
 
 - **Rule 20.1 (Universal Ban on Clippy Suppressions)**: `#[allow(clippy::too_many_arguments)]`, `#[allow(clippy::type_complexity)]`, `#[allow(clippy::needless_range_loop)]`, `#[allow(clippy::manual_clamp)]`, `#[allow(clippy::if_same_then_else)]` ve benzeri uyarı susturma niteliklerinin kullanımı istisnasız yasaktır.
 - **Rule 20.2 (Refactor Over Suppression)**: Bir fonksiyon veya veri yapısı linter uyarısı veriyorsa, bu bir mimari koku (code smell) işaretidir. Uyarıyı susturmak yerine kodun mimarisi temiz bir şekilde yeniden düzenlenmelidir (refactor):
