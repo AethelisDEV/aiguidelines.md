@@ -32,7 +32,7 @@ To maintain architectural continuity across different sessions and AI assistants
 - **Rule**: Always run `cargo check` after any structural change to ensure zero errors and zero warnings.
 - **Rule**: Avoid placeholders. If an asset is needed, generate or use a real representative file.
 
-# Aeon Engine AI Constitutional Guidelines (v2026)
+# (Proje Adı) AI Constitutional Guidelines (v2026)
 
 - **API Accuracy (Strict Enforcement)**: AI, wgpu, winit, egui vb. kullanılan tüm kütüphanelerin internetten (webden) kontrol edilerek elde edilen en güncel kararlı dökümantasyonuna sadık kalmak zorundadır. Eski sürüm API'larını kullanmak veya önermek kesinlikle YASAKTIR.
 - **Kırıcı Değişiklikler (Breaking Changes) ve Onay**: Eğer bir kütüphanenin en güncel kararlı sürümüne geçiş, kod tabanında geniş çaplı kırıcı değişiklikler (breaking changes) veya büyük yapısal refaktörler gerektiriyorsa; AI bu güncellemeyi doğrudan uygulamamalıdır. Öncelikle durum hakkında kullanıcıya detaylı bilgi vermeli ve onay istemelidir.
@@ -232,7 +232,27 @@ AI assistants MUST NOT declare a task completed simply by saying "code edited" o
   - 🧠 **Memory Allocations**: [Zero allocations in hot loop / Allocation delta]
   - 📦 **Binary Size Impact**: [Impact delta, e.g., "+0 KB"]
   ```
+## 19. Strict Redundant Clone Prevention Rule (Gereksiz `.clone()` Kullanımı Yasaktır - (ZORUNLU)
 
+Kolaycılığa kaçılarak yapılan gereksiz `.clone()` çağrıları Aeon Engine kod tabanında KESİNLİKLE YASAKTIR.
+
+- **Rule 19.1 (No Unnecessary Clones)**: Sırf borçlanma denetleyicisini (borrow checker) tatmin etmek veya kolayca geçiştirmek için nesneleri klonlamak kesinlikle yasaktır. Her `.clone()` çağrısının teknik bir zorunluluğu olmak zorundadır.
+- **Rule 19.2 (Ownership & Move Semantics First)**: Taşınabilecek (`move`) veya referans (`&`/`&mut`) verilebilecek durumlarda klonlama yapılmamalıdır. Bir vektör veya veri yapısı kullanım sonrasında temizleniyorsa veya tüketiliyorsa `std::mem::take`, `std::mem::replace` veya `.into_iter()` / `.into_par_iter()` kullanılmalıdır.
+- **Rule 19.3 (No Clone on Copy Types)**: `Copy` niteliğine sahip türler (`Vertex`, `[f32; N]`, ilkel türler vb.) üzerinde `.clone()` çağrısı yapılması yasaktır (`clippy::clone_on_copy`).
+- **Rule 19.4 (Hot Path Heap Allocation Lock)**: Sıcak döngülerde (per-frame `update`, `render`, mesh üretimi veya mipmap/kaplama işleme) gereksiz `Vec`, `String`, `Box` veya büyük veri yapısı klonlaması yapmak doğrudan kural ihlalidir.
+
+
+---
+## 20. Strict Prohibition of Linter Warning Suppression Attributes (`#[allow(clippy::...)]` Yasağı - ZORUNLU)
+
+Derleyici veya linter uyarılarını (özellikle Clippy) kolay yoldan susturmak amacıyla koda `#[allow(clippy::...)]` veya `#[allow(...)]` nitelikleri eklemek Aeon Engine kod tabanında **KESİNLİKLE YASAKTIR**.
+
+- **Rule 20.1 (Universal Ban on Clippy Suppressions)**: `#[allow(clippy::too_many_arguments)]`, `#[allow(clippy::type_complexity)]`, `#[allow(clippy::needless_range_loop)]`, `#[allow(clippy::manual_clamp)]`, `#[allow(clippy::if_same_then_else)]` ve benzeri uyarı susturma niteliklerinin kullanımı istisnasız yasaktır.
+- **Rule 20.2 (Refactor Over Suppression)**: Bir fonksiyon veya veri yapısı linter uyarısı veriyorsa, bu bir mimari koku (code smell) işaretidir. Uyarıyı susturmak yerine kodun mimarisi temiz bir şekilde yeniden düzenlenmelidir (refactor):
+  - **Too Many Arguments (>7 parametre)**: Fonksiyon parametreleri mantıksal ve temiz bir Context / Parameters / Descriptor struct'ı (`RenderParams`, `GizmoInputParams`, `GeometryParseOptions` vb.) altında toplanmalıdır.
+  - **Type Complexity (Karmaşık Tipler)**: Uzun tuple'lar veya karmaşık closure/tip tanımları için anlamlı `type` takma adları (type alias) veya özel struct/veri yapıları oluşturulmalıdır.
+  - **Diğer Clippy Uyarıları**: Idiomatic Rust çözümleri (`clamp()`, `zip()`, `if-let` zincirleri vb.) uygulanmalıdır.
+- **Rule 20.3 (Root-Cause Engineering)**: Linter uyarıları motorun kod kalitesini, okunabilirliğini ve güvenliğini koruyan birer rehberdir; halının altına süpürülemez. Her uyarı kök nedeninde çözülmelidir.
 
 
 
