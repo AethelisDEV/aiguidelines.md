@@ -105,6 +105,7 @@ AI assistants MUST NOT declare a task completed simply by saying "code edited" o
 
 ```
 
+- **Rule 6.4 (Mandatory Mathematical, Algorithmic & Regression Unit Testing)**: Whenever mathematical computations (matrices, quaternions, geometry, projections, frustum culling, raycasts, bounding volumes), algorithmic state machines, parsers, or non-hardware-bound bug fixes are implemented or modified, unit tests (`#[cfg(test)]`) MUST be written to verify invariants and boundary conditions (zero-division, scale singularity, empty collections, numerical overflow). Pure data definitions (POD structs/enums), configuration constants, and hardware-bound GPU render pass invocations are exempt.
 ---
 
 ## 7. Copyright and SPDX Header Rule (MANDATORY)
