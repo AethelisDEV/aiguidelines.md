@@ -22,6 +22,23 @@
 - **Rule 2.4 (English-Only Source Code & Code Comments Mandate)**: Source code, identifiers, struct/field names, UI text/labels, logs, and comments (`///`, `//`) MUST be 100% English. Turkish inside source files is forbidden.
 - **Rule 2.5 (Turkish Language Mandate for User Plans & Chat Interaction)**: User communication, plans (`implementation_plan.md`), and walkthroughs (`walkthrough.md`) MUST be written in Turkish for optimal clarity.
 
+- ### Documentation Score Standard
+
+```txt
+0/10 = Missing documentation.
+1/10 = Useless placeholder comment.
+2/10 = Extremely vague and not technically helpful.
+3/10 = Mostly repeats the item name.
+4/10 = Mentions purpose but lacks useful context.
+5/10 = Basic explanation, but incomplete.
+6/10 = Understandable but missing constraints, behavior, or usage notes.
+7/10 = Good enough for humans, but not strong enough for long-term AI context.
+8/10 = Acceptable: clear purpose, behavior, and relevant context.
+9/10 = Strong: explains purpose, behavior, constraints, and integration context.
+10/10 = Excellent: future-proof, precise, technically rich, and useful for AI/human maintenance.
+
+```
+
 ---
 
 ## 3. Persistent Knowledge Base & Memory Bank Synchronization (MANDATORY - Zero Postponement)
